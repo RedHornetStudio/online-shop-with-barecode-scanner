@@ -3,13 +3,14 @@ import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 import { buttonColor } from '../res/colors';
 
-const MainButton = ({ text, onPress }) => {
-  return <TouchableOpacity style={styles.button} onPress={onPress}><Text style={styles.text}>{text}</Text></TouchableOpacity>;
+const MainButton = ({ title, onPress }) => {
+  return <TouchableOpacity style={styles.button} onPress={onPress}><Text style={styles.text}>{title}</Text></TouchableOpacity>;
 };
 
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
+    marginHorizontal: 20,
     padding: 20,
     borderRadius: 10,
     backgroundColor: buttonColor,

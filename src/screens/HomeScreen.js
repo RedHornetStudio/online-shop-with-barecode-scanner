@@ -9,7 +9,7 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.brandText}>Tax Free Market</Text>
       <Text style={styles.descritpionText}>World-famous EUROPEN brands from any store without VAT - SALES TAX</Text>
-      <MainButton text='Scan barcode' onPress={() => navigation.navigate('Scanner')} />
+      <MainButton title='Scan barcode' onPress={() => navigation.navigate('Scanner')} />
     </View>
   );
 };
@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingHorizontal: 10,
     backgroundColor: backgroundColor,
   },
   brandText: {
