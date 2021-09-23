@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, StatusBar } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
-import { backgroundColor } from '../res/colors';
+import { secondaryBackgroundColor } from '../res/colors';
 import MainButton from '../components/MainButton';
 
-const ScannerScreen = () => {
+const ScannerScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -20,17 +20,21 @@ const ScannerScreen = () => {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    navigation.navigate('Details', { data });
   };
 
   if (hasPermission === null) {
     return (
-      <View style={styles.container}></View>
+      <View style={styles.container}>
+        <StatusBar barStyle='light-content' backgroundColor='transparent' translucent={true} />
+      </View>
     );
   }
   if (hasPermission === false) {
     return (
       <View style={styles.container}>
+        <StatusBar barStyle='light-content' backgroundColor='transparent' translucent={true} />
         <Text style={styles.text}>Access to camera denied</Text>
         <MainButton title={'Allow '} onPress={askForCameraPermission} />
       </View>
@@ -39,11 +43,11 @@ const ScannerScreen = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle='light-content' backgroundColor='transparent' translucent={true} />
       <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        onBarCodeScanned={handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
     </View>
   );
 };
@@ -52,12 +56,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: backgroundColor,
+    backgroundColor: secondaryBackgroundColor,
   },
   text: {
     textAlign: 'center',
     fontSize: 20,
     paddingBottom: 20,
+    color: 'white',
   },
 });
 
