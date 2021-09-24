@@ -26,7 +26,6 @@ const DetailsScreen = ({ navigation, route }) => {
     });
 
     if(response) {
-      console.log(response.data.products[0]);
       setProduct(response.data.products[0]);
     }
   };
