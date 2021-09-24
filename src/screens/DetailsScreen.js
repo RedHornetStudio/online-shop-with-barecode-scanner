@@ -9,8 +9,6 @@ import barcodeLookup from '../apis/barcodeLookup';
 const DetailsScreen = ({ navigation, route }) => {
   const { data } = route.params;
 
-  console.log(data, 'aaaa');
-
   const [product, setProduct] = useState('');
   const [error, setError] = useState('');
 
@@ -24,7 +22,6 @@ const DetailsScreen = ({ navigation, route }) => {
         barcode: data,
       },
     }).catch(e => {
-      console.log(`error in fetching data: ${e}`);
       setError(e.message);
     });
 
@@ -56,7 +53,6 @@ const DetailsScreen = ({ navigation, route }) => {
   }
 
   if(error) {
-    console.log(error);
     return (
       <View style={styles.container}>
         <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent={true} />
