@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, StatusBar } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 import { secondaryBackgroundColor } from '../res/colors';
 import MainButton from '../components/MainButton';
+import { StackActions } from '@react-navigation/routers';
 
 const ScannerScreen = ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -18,10 +19,9 @@ const ScannerScreen = ({ navigation }) => {
     setTimeout(askForCameraPermission, 300);
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-    // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    navigation.navigate('Details', { data });
+    navigation.dispatch(StackActions.replace('Details', { data }));
   };
 
   if (hasPermission === null) {
@@ -45,7 +45,7 @@ const ScannerScreen = ({ navigation }) => {
     <View style={styles.container}>
       <StatusBar barStyle='light-content' backgroundColor='transparent' translucent={true} />
       <BarCodeScanner
-        onBarCodeScanned={handleBarCodeScanned}
+        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
     </View>
